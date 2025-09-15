@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Food4All",
+    "desc": "A digital platform to reduce food waste by connecting donors with people in need. Includes location-based matching and efficient distribution management.",
+    "image": "food4all",
+    "category": "mern",
+    "links": {
+      "view": "https://food4all.com/",
+      "code": "https://github.com/rohanhero"
+    }
+  },
+  {
+    "name": "Eco-Guard",
+    "desc": "EcoGuard is a project focused on promoting environmental safety and sustainability. It helps monitor, report, and manage eco-related issues in a more efficient way.",
+    "image": "Eco",
+    "category": "mern",
+    "links": {
+      "view": "https://ecoguard.com.np/",
+      "code": "https://github.com/rohanhero"
+    }
+  },
+  {
+    "name": "Market Analysis Dashboard",
+    "desc": "Real-time business intelligence platform with interactive charts, market insights, and automated reporting features for strategic decision making.",
+    "image": "market",
+    "category": "mern",
+    "links": {
+      "view": "https://www.nepalstockexchange.com/",
+      "code": "https://github.com/rohanhero"
+    }
+  },
+  {
+    "name": "Project Management System",
+    "desc": "Professional portfolio website showcasing projects, skills, and achievements with responsive design and interactive elements.",
+    "image": "pj",
+    "category": "mern",
+    "links": {
+      "view": "https://projectmanagements.com/",
+      "code": "https://github.com/rohanhero"
+    }
+  },
+  {
+    "name": "Financial Planning Tool",
+    "desc": "Comprehensive financial management application with budget tracking, investment analysis, and strategic financial planning capabilities.",
+    "image": "cryptotracker",
+    "category": "lamp",
+    "links": {
+      "view": "https://tradingnepal.com/",
+      "code": "https://github.com/rohanhero"
+    }
+  },
+  {
+    "name": "JavaScript Projects Website",
+    "desc": "This website is specially build to showcase Protfolio. my javaScript based projects are in it.",
+    "image": "jspro",
+    "category": "basicweb",
+    "links": {
+      "view": "https://rohanhero.github.io/my",
+      "code": "https://github.com/rohanhero"
+    }
+  }
+]
