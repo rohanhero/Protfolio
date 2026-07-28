@@ -352,6 +352,19 @@
         padding: 128px 0;
         border-top: 1px solid var(--line-soft);
       }
+      @media (max-width: 860px) {
+        section {
+          padding: 88px 0;
+        }
+        .section-head {
+          margin-bottom: 44px;
+        }
+      }
+      @media (max-width: 480px) {
+        section {
+          padding: 68px 0;
+        }
+      }
       .reveal {
         opacity: 0;
         transform: translateY(28px);
@@ -538,12 +551,19 @@
       #hero {
         position: relative;
         min-height: 100vh;
+        min-height: 100dvh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         border-top: none;
         padding-top: 140px;
         padding-bottom: 60px;
+      }
+      @media (max-width: 700px) {
+        #hero {
+          padding-top: 120px;
+          padding-bottom: 90px;
+        }
       }
       #hero-canvas {
         display: none;
@@ -870,6 +890,11 @@
         gap: 22px 32px;
         padding-top: 32px;
         border-top: 1px solid var(--line-soft);
+      }
+      @media (max-width: 420px) {
+        .about-facts {
+          grid-template-columns: 1fr;
+        }
       }
       .fact dt {
         font-family: var(--f-mono);
@@ -1486,6 +1511,28 @@
         border-color: var(--gold);
       }
 
+      @media (max-width: 640px) {
+        .project-visual {
+          padding: 28px 24px;
+          min-height: unset;
+        }
+        .project-copy {
+          padding: 32px 24px;
+        }
+        .project-copy h3 {
+          font-size: 27px;
+        }
+        .work-card {
+          padding: 24px;
+        }
+        .sp-row {
+          padding: 20px 24px;
+        }
+        .sp-row:hover {
+          padding-left: 28px;
+        }
+      }
+
       /* ---------- contact ---------- */
       #contact {
         border-bottom: 1px solid var(--line-soft);
@@ -2036,13 +2083,13 @@
           <div class="project-copy">
             <div class="p-status">● Live — in production</div>
             <h3>Welcome Flooring &amp; Furnishing</h3>
-            <div class="p-role">Client Project Solo Build &amp; Deploy</div>
+            <div class="p-role">Client Project — Solo Build &amp; Deploy</div>
             <p class="desc">
               A live e-commerce site for a Nepal-based home furnishings brand,
-              selling curtains, carpets, PVC flooring, blinds, mat and
-              decor. Built solo on a React + TypeScript frontend with a Django
+              selling curtains, carpets, PVC flooring, blinds, mattresses and
+              décor. Built solo on a React + TypeScript frontend with a Django
               backend, and shipped from first commit to production deployment
-              the site the client uses today.
+              — the site the client uses today.
             </p>
             <div class="project-links">
               <a
@@ -2084,7 +2131,7 @@
             </div>
             <p class="desc">
               A food-sharing platform built with a team as part of the BCA
-              sixth-semester project Node.js and Express backend, EJS
+              sixth-semester project — Node.js and Express backend, EJS
               templating, SCSS on the frontend. My role centered on the
               frontend build.
             </p>
@@ -2478,12 +2525,29 @@
 
         const isSmall = window.innerWidth < 720;
 
+        // keep the globe fully framed regardless of aspect ratio (portrait/mobile
+        // has a much narrower horizontal FOV than desktop, which used to crop the
+        // sphere down to a scattered cluster of dots instead of a visible globe)
+        const GLOBE_FIT_RADIUS = 4.6;
+        const REFERENCE_DISTANCE = 9;
+        let campDistScale = 1;
+        let campLateralScale = 1;
+
         function resize() {
           const w = window.innerWidth,
             h = window.innerHeight;
           renderer.setSize(w, h, false);
           camera.aspect = w / h;
           camera.updateProjectionMatrix();
+
+          const aspect = w / h;
+          const vHalfFov = THREE.MathUtils.degToRad(camera.fov) / 2;
+          const halfFov =
+            aspect < 1 ? Math.atan(Math.tan(vHalfFov) * aspect) : vHalfFov;
+          const fitDistance = GLOBE_FIT_RADIUS / Math.tan(halfFov);
+
+          campDistScale = Math.max(1, fitDistance / REFERENCE_DISTANCE);
+          campLateralScale = aspect < 1 ? Math.max(0.35, aspect) : 1;
         }
         window.addEventListener("resize", resize);
         resize();
@@ -2568,7 +2632,7 @@
         const nodeCloud = new THREE.Points(nodeGeo, nodeMat);
 
         const lineVerts = [];
-        const maxDist = 1.05;
+        const maxDist = isSmall ? 1.35 : 1.05;
         for (let i = 0; i < nodePositions.length; i++) {
           for (let j = i + 1; j < nodePositions.length; j++) {
             if (nodePositions[i].distanceTo(nodePositions[j]) < maxDist) {
@@ -2669,15 +2733,39 @@
               b = waypoints[i + 1];
             if (frac >= a.frac && frac <= b.frac) {
               const t = (frac - a.frac) / (b.frac - a.frac || 1);
+              const rawPos = [0, 1, 2].map(
+                (k) => a.pos[k] + (b.pos[k] - a.pos[k]) * t,
+              );
+              const rawLook = [0, 1, 2].map(
+                (k) => a.look[k] + (b.look[k] - a.look[k]) * t,
+              );
               return {
-                pos: [0, 1, 2].map((k) => a.pos[k] + (b.pos[k] - a.pos[k]) * t),
-                look: [0, 1, 2].map(
-                  (k) => a.look[k] + (b.look[k] - a.look[k]) * t,
-                ),
+                pos: [
+                  rawPos[0] * campLateralScale,
+                  rawPos[1] * campLateralScale,
+                  rawPos[2] * campDistScale,
+                ],
+                look: [
+                  rawLook[0] * campLateralScale,
+                  rawLook[1] * campLateralScale,
+                  rawLook[2],
+                ],
               };
             }
           }
-          return waypoints[waypoints.length - 1];
+          const last = waypoints[waypoints.length - 1];
+          return {
+            pos: [
+              last.pos[0] * campLateralScale,
+              last.pos[1] * campLateralScale,
+              last.pos[2] * campDistScale,
+            ],
+            look: [
+              last.look[0] * campLateralScale,
+              last.look[1] * campLateralScale,
+              last.look[2],
+            ],
+          };
         }
 
         let mouseX = 0,
@@ -2709,9 +2797,11 @@
 
           const wp = getWaypoint(scrollFrac);
           camera.position.x +=
-            (wp.pos[0] + mouseX * 0.9 - camera.position.x) * 0.035;
+            (wp.pos[0] + mouseX * 0.9 * campLateralScale - camera.position.x) *
+            0.035;
           camera.position.y +=
-            (wp.pos[1] - mouseY * 0.7 - camera.position.y) * 0.035;
+            (wp.pos[1] - mouseY * 0.7 * campLateralScale - camera.position.y) *
+            0.035;
           camera.position.z += (wp.pos[2] - camera.position.z) * 0.035;
           lookVec.set(
             lookVec.x + (wp.look[0] - lookVec.x) * 0.035,
