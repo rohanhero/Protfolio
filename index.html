@@ -1102,6 +1102,224 @@
         opacity: 1;
         transform: translateY(0);
       }
+      .reveal.d1 {
+        transition-delay: 0.08s;
+      }
+      .reveal.d2 {
+        transition-delay: 0.16s;
+      }
+      .reveal.d3 {
+        transition-delay: 0.24s;
+      }
+
+      /* ---------- polish ---------- */
+      ::selection {
+        background: var(--black);
+        color: var(--white);
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f4f4f4;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--black);
+        border: 2px solid #f4f4f4;
+        border-radius: 999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--neutral-700);
+      }
+
+      /* film grain */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        pointer-events: none;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      }
+
+      /* hero status pill */
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--neutral-600);
+        border: 1px solid var(--black);
+        border-radius: 999px;
+        padding: 0.4rem 0.9rem;
+        width: max-content;
+      }
+      .status-pill .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--red);
+        position: relative;
+      }
+      .status-pill .dot::after {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        border-radius: 50%;
+        border: 1px solid var(--red);
+        animation: pulse-ring 2s ease-out infinite;
+      }
+      @keyframes pulse-ring {
+        0% {
+          transform: scale(0.5);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.8);
+          opacity: 0;
+        }
+      }
+
+      /* hero title staggered reveal */
+      .hero-title .hl-line {
+        display: block;
+      }
+      .hero-title .hw {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(26px);
+        filter: blur(7px);
+        animation: wordUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .hero-title .hl-1 .hw:nth-child(1) {
+        animation-delay: 0.08s;
+      }
+      .hero-title .hl-1 .hw:nth-child(2) {
+        animation-delay: 0.18s;
+      }
+      .hero-title .hl-1 .hw:nth-child(3) {
+        animation-delay: 0.28s;
+      }
+      .hero-title .hl-2 .hw:nth-child(1) {
+        animation-delay: 0.4s;
+      }
+      .hero-title .hl-2 .hw:nth-child(2) {
+        animation-delay: 0.5s;
+      }
+      .hero-title .hl-3 .hw:nth-child(1) {
+        animation-delay: 0.62s;
+      }
+      .hero-title .hl-3 .hw:nth-child(2) {
+        animation-delay: 0.72s;
+      }
+      @keyframes wordUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0);
+        }
+      }
+
+      /* skills marquee band */
+      .ticker {
+        background: var(--black);
+        color: var(--white);
+        overflow: hidden;
+        padding-block: 0.95rem;
+      }
+      .ticker-track {
+        display: flex;
+        width: max-content;
+        animation: tickerMove 30s linear infinite;
+      }
+      .ticker-inner {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        padding-right: 2.5rem;
+        white-space: nowrap;
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .ticker-inner i {
+        font-style: normal;
+        color: var(--red);
+      }
+      @keyframes tickerMove {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* skill tile hover fill */
+      .skill-tile {
+        transition:
+          transform 0.3s var(--ease),
+          background 0.3s var(--ease),
+          color 0.3s var(--ease);
+      }
+      .skill-tile.outline:hover {
+        background: var(--black);
+        color: var(--white);
+      }
+      .skill-tile.outline:hover .t-code {
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .skill-tile.filled:hover {
+        transform: translateY(-5px);
+      }
+
+      /* project image zoom on hover */
+      .p-img img {
+        transition: transform 0.6s var(--ease);
+      }
+      .proj-row:hover .p-img img {
+        transform: scale(1.045);
+      }
+
+      /* more projects link underline */
+      .more-row a {
+        position: relative;
+      }
+      .more-row a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        height: 1px;
+        width: 100%;
+        background: var(--red);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.35s var(--ease);
+      }
+      .more-row a:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      /* experience card stagger */
+      .xp-card:nth-child(1) {
+        transition-delay: 0.05s;
+      }
+      .xp-card:nth-child(2) {
+        transition-delay: 0.1s;
+      }
+      .xp-card:nth-child(3) {
+        transition-delay: 0.15s;
+      }
+      .xp-card:nth-child(4) {
+        transition-delay: 0.2s;
+      }
+      .xp-card:nth-child(5) {
+        transition-delay: 0.25s;
+      }
     </style>
   </head>
   <body>
@@ -1162,12 +1380,22 @@
       <section id="hero" class="hero">
         <div class="hero-grid">
           <div class="hero-copy reveal in">
+            <div class="status-pill">
+              <span class="dot"></span>Available for work
+            </div>
             <h1 class="hero-title">
-              <span class="fw">Hello, I'm </span>Rohan Bista
-              <br />
-              Frontend <span class="outline">Developer</span>
-              <br />
-              <span class="fw">Based In </span>Hetauda, Nepal.
+              <span class="hl-line hl-1"
+                ><span class="hw fw">Hello, I'm </span
+                ><span class="hw">Rohan</span> <span class="hw">Bista</span></span
+              >
+              <span class="hl-line hl-2"
+                ><span class="hw">Frontend</span>
+                <span class="hw outline">Developer</span></span
+              >
+              <span class="hl-line hl-3"
+                ><span class="hw fw">Based In </span
+                ><span class="hw">Hetauda, Nepal.</span></span
+              >
             </h1>
             <p class="hero-sub">
               Frontend developer from Hetauda, Nepal, currently completing a BCA
@@ -1243,6 +1471,28 @@
           </div>
         </div>
       </section>
+
+      <!-- skills marquee -->
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <div class="ticker-inner">
+            <span>React</span><i>•</i><span>TypeScript</span><i>•</i
+            ><span>JavaScript</span><i>•</i><span>Python</span><i>•</i
+            ><span>Django</span><i>•</i><span>Node.js</span><i>•</i
+            ><span>CSS</span><i>•</i><span>HTML</span><i>•</i
+            ><span>WordPress</span><i>•</i><span>Git</span><i>•</i
+            ><span>Networking</span><i>•</i><span>NEPSE</span><i>•</i>
+          </div>
+          <div class="ticker-inner">
+            <span>React</span><i>•</i><span>TypeScript</span><i>•</i
+            ><span>JavaScript</span><i>•</i><span>Python</span><i>•</i
+            ><span>Django</span><i>•</i><span>Node.js</span><i>•</i
+            ><span>CSS</span><i>•</i><span>HTML</span><i>•</i
+            ><span>WordPress</span><i>•</i><span>Git</span><i>•</i
+            ><span>Networking</span><i>•</i><span>NEPSE</span><i>•</i>
+          </div>
+        </div>
+      </div>
 
       <!-- ============ ABOUT ============ -->
       <section id="about">
