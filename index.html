@@ -195,6 +195,35 @@
         color: var(--white);
       }
 
+      /* ---------- toast ---------- */
+      #toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translate(-50%, 20px);
+        z-index: 9001;
+        background: var(--black);
+        color: var(--white);
+        font-size: 14px;
+        font-weight: 600;
+        padding: 0.8rem 1.6rem;
+        border-radius: 999px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.35s ease,
+          transform 0.35s var(--ease),
+          visibility 0.35s ease;
+        pointer-events: none;
+        white-space: nowrap;
+      }
+      #toast.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0);
+      }
+
       /* ---------- header ---------- */
       #site-header {
         position: sticky;
@@ -999,10 +1028,16 @@
         font-size: 14px;
         color: var(--black);
         font-weight: 600;
-        margin-bottom: 1.5rem;
       }
       .contact-phone:hover {
         color: var(--neutral-600);
+      }
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+        margin-bottom: 1.5rem;
       }
 
       /* form */
@@ -1325,6 +1360,7 @@
   <body>
     <div id="scroll-progress"></div>
     <button id="to-top" aria-label="Back to top" title="Back to top">↑</button>
+    <div id="toast" role="status" aria-live="polite">Email sent successfully</div>
 
     <header id="site-header">
       <nav aria-label="Main navigation">
@@ -1798,13 +1834,56 @@
             <article class="proj-row rev reveal">
               <div class="p-img">
                 <img
+                  src="prince.png"
+                  alt="Prince C.D.C Offset Press — website screenshot"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-body">
+                <p class="p-num">02</p>
+                <h3 class="p-title">Prince C.D.C Offset Press</h3>
+                <p class="p-desc">
+                  A live corporate website for an offset press company. A
+                  clean, modern layout tailored to the client's print and
+                  press services, delivered and deployed in production.
+                </p>
+                <p class="p-meta">
+                  Client Project · Live · Web Design / Development
+                </p>
+                <a
+                  href="https://princecdcoffsetpress.com.np/"
+                  target="_blank"
+                  rel="noopener"
+                  class="p-link"
+                  aria-label="Visit Prince C.D Offset Press"
+                  ><svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 17 17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <article class="proj-row reveal">
+              <div class="p-img">
+                <img
                   src="novastore.png"
                   alt="NovaStore — e-commerce platform screenshot"
                   loading="lazy"
                 />
               </div>
               <div class="p-body">
-                <p class="p-num">02</p>
+                <p class="p-num">03</p>
                 <h3 class="p-title">NovaStore</h3>
                 <p class="p-desc">
                   A full-stack e-commerce platform built from scratch: a fast,
@@ -1843,7 +1922,7 @@
               </div>
             </article>
 
-            <article class="proj-row reveal">
+            <article class="proj-row rev reveal">
               <div class="p-img">
                 <img
                   src="food4all.png"
@@ -1852,7 +1931,7 @@
                 />
               </div>
               <div class="p-body">
-                <p class="p-num">03</p>
+                <p class="p-num">04</p>
                 <h3 class="p-title">Food4All</h3>
                 <p class="p-desc">
                   A food-sharing platform built with a team as part of the BCA
@@ -1888,7 +1967,7 @@
               </div>
             </article>
 
-            <article class="proj-row rev reveal">
+            <article class="proj-row reveal">
               <div class="p-img">
                 <img
                   src="eco.png"
@@ -1897,7 +1976,7 @@
                 />
               </div>
               <div class="p-body">
-                <p class="p-num">04</p>
+                <p class="p-num">05</p>
                 <h3 class="p-title">EcoGuard</h3>
                 <p class="p-desc">
                   A municipality issues tracking and management system
@@ -1989,9 +2068,14 @@
                 Open to new projects and collaborations. Send a message if you
                 want to talk. Happy to relocate or work remotely.
               </p>
-              <a href="tel:+9779865500171" class="contact-phone"
-                >+977 986 550 0171</a
-              >
+              <div class="contact-links">
+                <a href="tel:+9779865500171" class="contact-phone"
+                  >+977 986 550 0171</a
+                >
+                <a href="mailto:info@rohanbista.com.np" class="contact-phone"
+                  >info@rohanbista.com.np</a
+                >
+              </div>
               <ul class="socials" aria-label="Social links">
                 <li>
                   <a
@@ -2049,6 +2133,24 @@
                     >
                       <path
                         d="M11.94 0A12 12 0 1 0 24 12 12 12 0 0 0 11.94 0zM17.7 8.05l-1.98 9.33c-.15.66-.54.82-1.09.51l-3-2.21-1.45 1.39a.76.76 0 0 1-.6.3l.21-3.05 5.55-5.02c.24-.21-.05-.33-.37-.12L7.5 13.51l-2.96-.92c-.64-.2-.65-.64.14-.95l11.56-4.46c.54-.2 1.01.13.83.87z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:info@rohanbista.com.np"
+                    aria-label="Email"
+                    class="social"
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.691 2.28 24 3.434 24 5.457z"
                       />
                     </svg>
                   </a>
@@ -2191,6 +2293,11 @@
       onSpy();
 
       /* ---------------- contact form ---------------- */
+      const toast = document.getElementById("toast");
+      function showToast() {
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+      }
       document
         .getElementById("contact-form")
         .addEventListener("submit", function (e) {
@@ -2209,6 +2316,7 @@
               if (res.ok) {
                 btn.textContent = "Message sent ✓";
                 form.reset();
+                showToast();
               } else {
                 throw new Error("request failed");
               }
