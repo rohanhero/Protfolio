@@ -687,6 +687,11 @@
         letter-spacing: 0.1em;
         text-transform: uppercase;
       }
+      .skill-tile .t-logo {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
       .skill-tile .t-name {
         font-size: 15px;
         font-weight: 700;
@@ -838,10 +843,10 @@
         }
       }
       .p-img img {
-        aspect-ratio: 16 / 10;
         width: 100%;
+        height: auto;
         border-radius: 16px;
-        object-fit: cover;
+        object-fit: contain;
       }
       .p-body {
         display: flex;
@@ -1306,6 +1311,9 @@
       .skill-tile.outline:hover .t-code {
         color: rgba(255, 255, 255, 0.55);
       }
+      .skill-tile.outline:hover .t-logo {
+        filter: invert(1);
+      }
       .skill-tile.filled:hover {
         transform: translateY(-5px);
       }
@@ -1599,51 +1607,51 @@
             <span class="fw">My </span><span class="bd">Skills</span>
           </h2>
           <div class="skills-grid reveal">
-            <div class="skill-tile outline">
-              <span class="t-code">MARKUP</span>
-              <p class="t-name">HTML</p>
-            </div>
-            <div class="skill-tile outline">
-              <span class="t-code">STYLE</span>
-              <p class="t-name">CSS</p>
-            </div>
             <div class="skill-tile filled">
-              <span class="t-code">LANG</span>
+              <img class="t-logo" src="https://cdn.simpleicons.org/javascript/ffffff" alt="JavaScript logo">
               <p class="t-name">JavaScript</p>
             </div>
             <div class="skill-tile outline">
-              <span class="t-code">LANG</span>
+              <img class="t-logo" src="https://cdn.simpleicons.org/typescript/000000" alt="TypeScript logo">
               <p class="t-name">TypeScript</p>
             </div>
-            <div class="skill-tile outline">
-              <span class="t-code">LANG</span>
+            <div class="skill-tile filled">
+              <img class="t-logo" src="https://cdn.simpleicons.org/python/ffffff" alt="Python logo">
               <p class="t-name">Python</p>
             </div>
-            <div class="skill-tile filled">
-              <span class="t-code">BACKEND</span>
-              <p class="t-name">Django</p>
-            </div>
             <div class="skill-tile outline">
-              <span class="t-code">UI</span>
+              <img class="t-logo" src="https://cdn.simpleicons.org/tailwindcss/000000" alt="Tailwind CSS logo">
+              <p class="t-name">Tailwind CSS</p>
+            </div>
+            <div class="skill-tile filled">
+              <img class="t-logo" src="https://cdn.simpleicons.org/react/ffffff" alt="React logo">
               <p class="t-name">React</p>
             </div>
             <div class="skill-tile outline">
-              <span class="t-code">RUNTIME</span>
+              <img class="t-logo" src="https://cdn.simpleicons.org/nodedotjs/000000" alt="Node.js logo">
               <p class="t-name">Node.js</p>
             </div>
             <div class="skill-tile outline">
-              <span class="t-code">CMS</span>
-              <p class="t-name">WordPress</p>
+              <img class="t-logo" src="https://cdn.simpleicons.org/django/000000" alt="Django logo">
+              <p class="t-name">Django</p>
+            </div>
+            <div class="skill-tile filled">
+              <img class="t-logo" src="https://cdn.simpleicons.org/postgresql/ffffff" alt="PostgreSQL logo">
+              <p class="t-name">PostgreSQL</p>
             </div>
             <div class="skill-tile outline">
-              <span class="t-code">VCS</span>
+              <img class="t-logo" src="https://cdn.simpleicons.org/wordpress/000000" alt="WordPress logo">
+              <p class="t-name">WordPress</p>
+            </div>
+            <div class="skill-tile filled">
+              <img class="t-logo" src="https://cdn.simpleicons.org/git/ffffff" alt="Git logo">
               <p class="t-name">Git</p>
             </div>
             <div class="skill-tile outline">
-              <span class="t-code">DEPLOY</span>
+              <img class="t-logo" src="https://cdn.simpleicons.org/netlify/000000" alt="Netlify logo">
               <p class="t-name">Netlify</p>
             </div>
-            <div class="skill-tile outline">
+            <div class="skill-tile filled">
               <span class="t-code">INFRA</span>
               <p class="t-name">Networking</p>
             </div>
